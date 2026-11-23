@@ -1,0 +1,1 @@
+# Uses Python standard library only; PyInstaller is installed by build_windows.bat
