@@ -1,0 +1,28 @@
+   
+name: Build CART3R AI for Windows
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install PyInstaller
+        run: python -m pip install --upgrade pip pyinstaller
+      - name: Build EXE
+        run: python -m PyInstaller --noconfirm --clean --onefile --windowed --name CART3R_AI cart3r_ai.py
+      - name: Upload EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: CART3R_AI-Windows
+          path: dist/CART3R_AI.exe
